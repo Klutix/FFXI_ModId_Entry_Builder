@@ -42,6 +42,8 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblPetId = new System.Windows.Forms.Label();
+            this.cboPetId = new System.Windows.Forms.ComboBox();
             this.txtSelectedPath = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
@@ -62,28 +64,34 @@
             this.lstModValues.ForeColor = System.Drawing.SystemColors.InactiveBorder;
             this.lstModValues.FormattingEnabled = true;
             this.lstModValues.ItemHeight = 19;
-            this.lstModValues.Location = new System.Drawing.Point(6, 82);
+            this.lstModValues.Location = new System.Drawing.Point(17, 82);
             this.lstModValues.Name = "lstModValues";
             this.lstModValues.Size = new System.Drawing.Size(331, 327);
             this.lstModValues.TabIndex = 4;
             this.lstModValues.SelectedIndexChanged += new System.EventHandler(this.lstModValues_SelectedIndexChanged);
+            this.lstModValues.Enter += new System.EventHandler(this.lstModValues_Enter);
+            this.lstModValues.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstModValues_KeyPress);
+            this.lstModValues.Leave += new System.EventHandler(this.lstModValues_Leave);
             // 
             // txtFilter
             // 
-            this.txtFilter.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtFilter.BackColor = System.Drawing.SystemColors.ControlDark;
             this.txtFilter.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFilter.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.txtFilter.Location = new System.Drawing.Point(9, 40);
+            this.txtFilter.Location = new System.Drawing.Point(20, 41);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(100, 27);
+            this.txtFilter.Size = new System.Drawing.Size(110, 27);
             this.txtFilter.TabIndex = 3;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
+            this.txtFilter.Enter += new System.EventHandler(this.txtFilter_Enter);
+            this.txtFilter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilter_KeyPress);
+            this.txtFilter.Leave += new System.EventHandler(this.txtFilter_Leave);
             // 
             // sd
             // 
             this.sd.AutoSize = true;
             this.sd.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sd.Location = new System.Drawing.Point(9, 18);
+            this.sd.Location = new System.Drawing.Point(16, 18);
             this.sd.Name = "sd";
             this.sd.Size = new System.Drawing.Size(100, 19);
             this.sd.TabIndex = 2;
@@ -92,14 +100,17 @@
             // 
             // txtItemSearch
             // 
-            this.txtItemSearch.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtItemSearch.BackColor = System.Drawing.SystemColors.ControlDark;
             this.txtItemSearch.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtItemSearch.ForeColor = System.Drawing.SystemColors.InfoText;
             this.txtItemSearch.Location = new System.Drawing.Point(16, 40);
             this.txtItemSearch.Name = "txtItemSearch";
-            this.txtItemSearch.Size = new System.Drawing.Size(344, 27);
+            this.txtItemSearch.Size = new System.Drawing.Size(374, 27);
             this.txtItemSearch.TabIndex = 1;
             this.txtItemSearch.TextChanged += new System.EventHandler(this.txtItemSearch_TextChanged);
+            this.txtItemSearch.Enter += new System.EventHandler(this.txtItemSearch_Enter);
+            this.txtItemSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItemSearch_KeyPress);
+            this.txtItemSearch.Leave += new System.EventHandler(this.txtItemSearch_Leave);
             // 
             // lstItems
             // 
@@ -110,20 +121,24 @@
             this.lstItems.ItemHeight = 19;
             this.lstItems.Location = new System.Drawing.Point(16, 73);
             this.lstItems.Name = "lstItems";
-            this.lstItems.Size = new System.Drawing.Size(344, 118);
+            this.lstItems.Size = new System.Drawing.Size(374, 137);
             this.lstItems.TabIndex = 2;
             this.lstItems.Click += new System.EventHandler(this.lstItems_Click);
             this.lstItems.SelectedIndexChanged += new System.EventHandler(this.lstItems_SelectedIndexChanged);
+            this.lstItems.Enter += new System.EventHandler(this.lstItems_Enter);
+            this.lstItems.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstItems_KeyPress);
+            this.lstItems.Leave += new System.EventHandler(this.lstItems_Leave);
             // 
             // rtxtDescription
             // 
             this.rtxtDescription.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.rtxtDescription.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtxtDescription.ForeColor = System.Drawing.SystemColors.Info;
-            this.rtxtDescription.Location = new System.Drawing.Point(396, 40);
+            this.rtxtDescription.Location = new System.Drawing.Point(400, 40);
             this.rtxtDescription.Name = "rtxtDescription";
-            this.rtxtDescription.Size = new System.Drawing.Size(436, 165);
-            this.rtxtDescription.TabIndex = 6;
+            this.rtxtDescription.ReadOnly = true;
+            this.rtxtDescription.Size = new System.Drawing.Size(665, 170);
+            this.rtxtDescription.TabIndex = 0;
             this.rtxtDescription.Text = "";
             // 
             // label1
@@ -155,16 +170,16 @@
             this.lstAddedValues.ForeColor = System.Drawing.Color.White;
             this.lstAddedValues.FormattingEnabled = true;
             this.lstAddedValues.ItemHeight = 19;
-            this.lstAddedValues.Location = new System.Drawing.Point(512, 82);
+            this.lstAddedValues.Location = new System.Drawing.Point(527, 82);
             this.lstAddedValues.Name = "lstAddedValues";
-            this.lstAddedValues.Size = new System.Drawing.Size(333, 327);
+            this.lstAddedValues.Size = new System.Drawing.Size(554, 327);
             this.lstAddedValues.TabIndex = 9;
             // 
             // btnAdd
             // 
             this.btnAdd.BackColor = System.Drawing.Color.Black;
             this.btnAdd.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(343, 203);
+            this.btnAdd.Location = new System.Drawing.Point(358, 159);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(163, 32);
             this.btnAdd.TabIndex = 6;
@@ -176,7 +191,7 @@
             // 
             this.btnRemove.BackColor = System.Drawing.Color.Black;
             this.btnRemove.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemove.Location = new System.Drawing.Point(343, 241);
+            this.btnRemove.Location = new System.Drawing.Point(358, 197);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(163, 33);
             this.btnRemove.TabIndex = 11;
@@ -188,9 +203,9 @@
             // 
             this.btnExport.BackColor = System.Drawing.Color.Black;
             this.btnExport.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExport.Location = new System.Drawing.Point(600, 14);
+            this.btnExport.Location = new System.Drawing.Point(527, 14);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(245, 27);
+            this.btnExport.Size = new System.Drawing.Size(245, 30);
             this.btnExport.TabIndex = 7;
             this.btnExport.Text = "Export(.csv)";
             this.btnExport.UseVisualStyleBackColor = false;
@@ -207,13 +222,15 @@
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(851, 211);
+            this.groupBox1.Size = new System.Drawing.Size(1081, 225);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblPetId);
+            this.groupBox2.Controls.Add(this.cboPetId);
             this.groupBox2.Controls.Add(this.txtSelectedPath);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.btnClear);
@@ -234,16 +251,48 @@
             this.groupBox2.ForeColor = System.Drawing.Color.Yellow;
             this.groupBox2.Location = new System.Drawing.Point(12, 229);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(851, 415);
+            this.groupBox2.Size = new System.Drawing.Size(1087, 415);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
+            // 
+            // lblPetId
+            // 
+            this.lblPetId.AutoSize = true;
+            this.lblPetId.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPetId.Location = new System.Drawing.Point(358, 20);
+            this.lblPetId.Name = "lblPetId";
+            this.lblPetId.Size = new System.Drawing.Size(53, 19);
+            this.lblPetId.TabIndex = 24;
+            this.lblPetId.Text = "Pet Id";
+            // 
+            // cboPetId
+            // 
+            this.cboPetId.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.cboPetId.FormattingEnabled = true;
+            this.cboPetId.Items.AddRange(new object[] {
+            "All",
+            "Avatar",
+            "Wyvern",
+            "Automaton",
+            "Harlequin",
+            "Valoredge",
+            "Sharpshot",
+            "Stormwaker",
+            "Luopan",
+            "NA \t\t"});
+            this.cboPetId.Location = new System.Drawing.Point(358, 41);
+            this.cboPetId.Name = "cboPetId";
+            this.cboPetId.Size = new System.Drawing.Size(121, 27);
+            this.cboPetId.TabIndex = 23;
+            this.cboPetId.Text = "NA";
+            this.cboPetId.SelectedIndexChanged += new System.EventHandler(this.cboPetId_SelectedIndexChanged);
             // 
             // txtSelectedPath
             // 
             this.txtSelectedPath.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.txtSelectedPath.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSelectedPath.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.txtSelectedPath.Location = new System.Drawing.Point(600, 46);
+            this.txtSelectedPath.Location = new System.Drawing.Point(527, 49);
             this.txtSelectedPath.Name = "txtSelectedPath";
             this.txtSelectedPath.ReadOnly = true;
             this.txtSelectedPath.Size = new System.Drawing.Size(209, 27);
@@ -253,7 +302,7 @@
             // 
             this.button2.BackColor = System.Drawing.Color.Black;
             this.button2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(815, 47);
+            this.button2.Location = new System.Drawing.Point(742, 50);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(30, 26);
             this.button2.TabIndex = 21;
@@ -265,7 +314,7 @@
             // 
             this.btnClear.BackColor = System.Drawing.Color.Black;
             this.btnClear.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClear.Location = new System.Drawing.Point(343, 82);
+            this.btnClear.Location = new System.Drawing.Point(354, 82);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(163, 37);
             this.btnClear.TabIndex = 20;
@@ -277,7 +326,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(273, 18);
+            this.label5.Location = new System.Drawing.Point(284, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(63, 19);
             this.label5.TabIndex = 19;
@@ -288,7 +337,7 @@
             this.txtId.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.txtId.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtId.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.txtId.Location = new System.Drawing.Point(277, 41);
+            this.txtId.Location = new System.Drawing.Point(287, 40);
             this.txtId.Name = "txtId";
             this.txtId.ReadOnly = true;
             this.txtId.Size = new System.Drawing.Size(60, 27);
@@ -298,7 +347,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(343, 172);
+            this.label4.Location = new System.Drawing.Point(358, 128);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 19);
             this.label4.TabIndex = 17;
@@ -309,17 +358,20 @@
             // 
             this.txtModValue.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.txtModValue.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtModValue.Location = new System.Drawing.Point(401, 169);
+            this.txtModValue.Location = new System.Drawing.Point(416, 125);
             this.txtModValue.Name = "txtModValue";
             this.txtModValue.Size = new System.Drawing.Size(49, 27);
             this.txtModValue.TabIndex = 5;
+            this.txtModValue.Enter += new System.EventHandler(this.txtModValue_Enter);
+            this.txtModValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtModValue_KeyPress);
+            this.txtModValue.Leave += new System.EventHandler(this.txtModValue_Leave);
             // 
             // txtSelectedItem
             // 
             this.txtSelectedItem.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.txtSelectedItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSelectedItem.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.txtSelectedItem.Location = new System.Drawing.Point(128, 40);
+            this.txtSelectedItem.Location = new System.Drawing.Point(151, 41);
             this.txtSelectedItem.Name = "txtSelectedItem";
             this.txtSelectedItem.ReadOnly = true;
             this.txtSelectedItem.Size = new System.Drawing.Size(130, 27);
@@ -329,7 +381,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(124, 18);
+            this.label3.Location = new System.Drawing.Point(147, 18);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 19);
             this.label3.TabIndex = 14;
@@ -339,10 +391,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(884, 656);
+            this.ClientSize = new System.Drawing.Size(1111, 656);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.MaximizeBox = false;
             this.Name = "frmMain";
             this.Text = "FFMODIDAssist";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -379,6 +434,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.TextBox txtFilter;
+        private System.Windows.Forms.ComboBox cboPetId;
+        private System.Windows.Forms.Label lblPetId;
     }
 }
 

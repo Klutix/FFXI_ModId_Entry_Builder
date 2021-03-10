@@ -160,49 +160,70 @@ namespace FFXIExtractSharp
 
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void AddToList()
         {
+
             try
             {
                 //get old values
                 Dictionary<string, string> dctAddedItems = new Dictionary<string, string>();
-               
-                foreach(KeyValuePair<string, string> val in lstAddedValues.Items)
+
+
+                List<string> lstOldItems = new List<string>();
+
+                foreach ( string val in lstAddedValues.Items)
                 {
-                    dctAddedItems.Add(val.Key.ToString(), val.Value.ToString());
+                    lstOldItems.Add(val);
                 }
 
-            
+
                 if (lstModValues.SelectedItem != null & txtSelectedItem.Text != "" & txtModValue.Text != "" & txtId.Text != "")
                 {
-                    if (!dctAddedItems.ContainsKey(txtId.Text + ' ' + lstModValues.SelectedItem.ToString())) ;
-                    dctAddedItems.Add(txtId.Text + ' ' + lstModValues.SelectedItem.ToString(), txtModValue.Text);
-                    lstAddedValues.DataSource = new BindingSource(dctAddedItems, null);
+                    //if (dctAddedItems.ContainsKey(txtId.Text + ' ' + lstModValues.SelectedItem.ToString()))
+                    //dctAddedItems.Remove(txtId.Text + ' ' + lstModValues.SelectedItem.ToString());
+                    //dctAddedItems.Add(dctAddedItems.Count.ToString(), txtId.Text + ' ' + lstModValues.SelectedItem.ToString() + ' ' + cboPetId.SelectedItem == null ? txtModValue.Text : txtModValue.Text + ',' + cboPetId.SelectedIndex.ToString());
+                    lstOldItems.Add(txtId.Text + ' ' + lstModValues.SelectedItem.ToString() + ' ' + (cboPetId.SelectedItem == null ? txtModValue.Text : txtModValue.Text + ',' + cboPetId.SelectedIndex.ToString()));
+                    lstAddedValues.DataSource = new BindingSource(lstOldItems, null);
+                    lstAddedValues.SelectedIndex = lstOldItems.Count - 1;
+
                 }
-               
-            }catch(Exception z)
+
+
+                txtFilter.Focus();
+
+            }
+            catch (Exception z)
             {
                 //ooooooooo lala
             }
+        }
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            AddToList();
+            
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
             //get old values
             int index = 0;
+            List<string> lstOldItems = new List<string>();
             if (lstAddedValues.Items.Count > 0)
             
                 try
                 {
-                    Dictionary<string, string> dctAddedItems = new Dictionary<string, string>();
-                    foreach (KeyValuePair<string, string> val in lstAddedValues.Items)
+                    //Dictionary<string, string> dctAddedItems = new Dictionary<string, string>();
+                    foreach (string  val in lstAddedValues.Items)
                     {
                         if (lstAddedValues.SelectedIndex != index)
-                            dctAddedItems.Add(val.Key.ToString(), val.Value.ToString());
+                            lstOldItems.Add(val);
                         index++;
                     }
-                    if (dctAddedItems.Count > 0)
-                        lstAddedValues.DataSource = new BindingSource(dctAddedItems, null);
+                    if (lstOldItems.Count > 0)
+                    {
+                        lstAddedValues.DataSource = new BindingSource(lstOldItems, null);
+                        lstAddedValues.SelectedIndex = lstAddedValues.Items.Count - 1 ;
+                    }
                     else
                     {
                         lstAddedValues.DataSource = null;
@@ -221,54 +242,123 @@ namespace FFXIExtractSharp
 
         }
 
-        private void btnExport_Click(object sender, EventArgs e)
+
+        private void createPetCSVExport()
         {
-            
-                //begin export
-                int index = 0;
-                if (lstAddedValues.Items.Count > 0)
-                    try
+
+            //begin export pets
+            int index = 0;
+            if (lstAddedValues.Items.Count > 0)
+                try
+                {
+                    if (txtSelectedPath.Text != "")
                     {
-                        if (txtSelectedPath.Text != "")
+                        string newPath = txtSelectedPath.Text.Substring(0, txtSelectedPath.Text.LastIndexOf(".") - 1) + "_pet_mods.csv";
+                        using (System.IO.StreamWriter file = new System.IO.StreamWriter(newPath, true))
                         {
-
-                            using (System.IO.StreamWriter file = new System.IO.StreamWriter(txtSelectedPath.Text,true))
+                            //Dictionary<string, string> dctAddedItems = new Dictionary<string, string>();
+                            foreach (string val in lstAddedValues.Items)
                             {
-                                Dictionary<string, string> dctAddedItems = new Dictionary<string, string>();
-                                foreach (KeyValuePair<string, string> val in lstAddedValues.Items)
+                                string entry = val;
+                                //first replace brackets with comma
+                                entry = entry.Replace('[', ',');
+                                entry = entry.Replace(']', ',');
+                                //clean up string
+                                entry = entry.Trim();
+
+
+                                string[] values = entry.Split(',');
+                                //this logic could be improved and moved up
+                                if (values.Length > 4)
                                 {
-                                    string entry = val.Key.ToString() + val.Value.ToString();
-                                    //first replace brackets with comma
-                                    entry = entry.Replace('[', ',');
-                                    entry = entry.Replace(']', ',');
-                                    //clean up string
-                                    entry = entry.Trim();
 
-                                    string[] values = entry.Split(',');
+                                    string id = values[0].Trim();
+                                    string modid = values[2].Trim();
+                                    string value = values[3].Trim();
+                                    string petId = values[4].Trim();
 
+
+                                    file.WriteLine(id + "," + modid + "," + value + "," + petId);
+                                }
+
+                            }
+                        };
+                    
+                    }
+                }
+                catch (Exception a)
+                {
+                    Console.WriteLine(a.Message);
+                }
+
+
+        }
+
+        private void exportToCSV()
+        {
+            bool createPetCSV = true;
+            //begin export
+            int index = 0;
+            if (lstAddedValues.Items.Count > 0)
+                try
+                {
+                    if (txtSelectedPath.Text != "")
+                    {
+
+                        using (System.IO.StreamWriter file = new System.IO.StreamWriter(txtSelectedPath.Text, true))
+                        {
+                           //Dictionary<string, string> dctAddedItems = new Dictionary<string, string>();
+                            foreach (string val in lstAddedValues.Items)
+                            {
+                                string entry = val;
+                                //first replace brackets with comma
+                                entry = entry.Replace('[', ',');
+                                entry = entry.Replace(']', ',');
+                                //clean up string
+                                entry = entry.Trim();
+
+                                string[] values = entry.Split(',');
+                                if (values.Length > 4 && createPetCSV)
+                                {
+
+                                    createPetCSVExport();
+                                    createPetCSV = false;
+                                    continue;
+                                }
+
+                                if (values.Length <= 4)
+                                {
                                     string id = values[0].Trim();
                                     string modid = values[2].Trim();
                                     string value = values[3].Trim();
 
 
-                                    file.WriteLine(id+"," + modid+"," + value);
-                       
+                                    file.WriteLine(id + "," + modid + "," + value);
                                 }
-                            };
-                        MessageBox.Show("Finished Export");
-                        }
-                    }
-                    catch (Exception a)
-                    {
-                        Console.WriteLine(a.Message);
-                    }
 
+                            }
+                        };
+                        MessageBox.Show("Finished Export");
+                    }
                 }
+                catch (Exception a)
+                {
+                    Console.WriteLine(a.Message);
+                }
+
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            exportToCSV();
+
+        }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
             lstAddedValues.DataSource = null;
             lstAddedValues.Items.Clear();
+            cboPetId.SelectedItem = "";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -280,6 +370,148 @@ namespace FFXIExtractSharp
 
             if (openFileDialog1.FileName != "")
                 txtSelectedPath.Text = openFileDialog1.FileName;
+        }
+
+        private void lstModValues_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // The keypressed method uses the KeyChar property to check 
+            // whether the ENTER key is pressed. 
+
+            // If the ENTER key is pressed, the Handled property is set to true, 
+            // to indicate the event is handled.
+            if (e.KeyChar == (char)Keys.Return || e.KeyChar == (char)Keys.Space)
+            {
+                txtModValue.Focus();
+
+                e.Handled = true;
+            }else if(e.KeyChar == (char)Keys.Tab)
+            {
+                txtFilter.Focus();
+            }
+        }
+
+        private void txtFilter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return || e.KeyChar == (char)Keys.Space || e.KeyChar == (char)Keys.Tab)
+            {
+                lstModValues.Focus();
+
+                e.Handled = true;
+            }
+        }
+
+        private void txtItemSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // If the ENTER key is pressed, the Handled property is set to true, 
+            // to indicate the event is handled.
+            if (e.KeyChar == (char)Keys.Return || e.KeyChar == (char)Keys.Enter || e.KeyChar == (char)Keys.Space || e.KeyChar == (char)Keys.Tab)
+            {
+                lstItems.Focus();
+
+                e.Handled = true;
+            }
+        }
+
+            
+
+            private void lstItems_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // The keypressed method uses the KeyChar property to check 
+            // whether the ENTER key is pressed. 
+
+            // If the ENTER key is pressed, the Handled property is set to true, 
+            // to indicate the event is handled.
+            if (e.KeyChar == (char)Keys.Return || e.KeyChar == (char)Keys.Enter || e.KeyChar == (char)Keys.Space || e.KeyChar == (char)Keys.Tab)
+            {
+                if (lstItems.SelectedItem != null)
+                {
+                    string[] vals = lstItems.SelectedItem.ToString().Split('#');
+                    string name = vals[1].Replace(',', ' ').Trim();
+                    string id = vals[2].Replace(',', ' ').Trim();
+
+                    txtSelectedItem.Text = name;
+                    txtId.Text = id;
+                }
+
+                txtFilter.Focus();
+
+            }
+        }
+
+        private void txtModValue_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return || e.KeyChar == (char)Keys.Enter || e.KeyChar == (char)Keys.Space || e.KeyChar == (char)Keys.Tab)
+            {
+                AddToList();
+                txtFilter.Focus();
+                
+                
+            }
+   
+        }
+
+        private void lstItems_Enter(object sender, EventArgs e)
+        {
+            lstItems.BackColor = Color.DarkSlateBlue;
+            
+        }
+
+        private void lstItems_Leave(object sender, EventArgs e)
+        {
+            lstItems.BackColor = SystemColors.WindowFrame;
+        }
+
+        private void cboPetId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboPetId.SelectedText == "NA" || cboPetId.SelectedIndex == 9)
+            {
+                cboPetId.SelectedItem = null;
+            }
+        }
+
+        private void txtFilter_Enter(object sender, EventArgs e)
+        {
+            txtFilter.BackColor = Color.DarkSlateBlue;
+            txtFilter.ForeColor = Color.White;
+        }
+
+        private void lstModValues_Leave(object sender, EventArgs e)
+        {
+            lstModValues.BackColor = SystemColors.WindowFrame;
+            
+        }
+
+        private void txtFilter_Leave(object sender, EventArgs e)
+        {
+            txtFilter.BackColor = SystemColors.ControlDark;
+            
+        }
+
+        private void lstModValues_Enter(object sender, EventArgs e)
+        {
+            lstModValues.BackColor = Color.DarkSlateBlue;
+        }
+
+        private void txtModValue_Enter(object sender, EventArgs e)
+        {
+            txtModValue.BackColor = Color.DarkSlateBlue;
+            txtModValue.ForeColor = Color.White;
+        }
+
+        private void txtModValue_Leave(object sender, EventArgs e)
+        {
+            txtModValue.BackColor = SystemColors.ControlDark;
+        }
+
+        private void txtItemSearch_Enter(object sender, EventArgs e)
+        {
+            txtItemSearch.BackColor = Color.DarkSlateBlue;
+            txtItemSearch.ForeColor = Color.White;
+        }
+
+        private void txtItemSearch_Leave(object sender, EventArgs e)
+        {
+            txtItemSearch.BackColor = SystemColors.ControlDark;
         }
     }
 

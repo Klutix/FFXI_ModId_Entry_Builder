@@ -19,4 +19,3 @@ C:\Users\kiren\source\repos\FFXIExtractSharp\obj\Debug\FFXIExtractSharp.csproj.C
 C:\Users\kiren\source\repos\FFXIExtractSharp\obj\Debug\FFXIExtractSharp.exe
 C:\Users\kiren\source\repos\FFXIExtractSharp\obj\Debug\FFXIExtractSharp.pdb
 C:\Users\kiren\source\repos\FFXIExtractSharp\obj\Debug\FFXIExtractSharp.frmMain.resources
-C:\Users\kiren\source\repos\FFXIExtractSharp\obj\Debug\FFXIExtractSharp.csprojAssemblyReference.cache
